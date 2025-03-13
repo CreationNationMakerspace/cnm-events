@@ -58,20 +58,21 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-6 pb-20 gap-16 sm:p-20 bg-[url('/backdrop.jpg')] bg-cover bg-center bg-fixed">
+      <div className="absolute inset-0 bg-white/50"></div>
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start relative">
       <div>
         <div className="flex flex-col items-center mb-8">
-          <a href="https://creationnation.ca/" target="_blank" rel="noopener noreferrer">
+          <a href="https://creationnation.ca/" target="_blank" rel="noopener noreferrer" className="relative w-[400px] h-[130px] block">
             <Image
               src="/cnm.svg"
               alt="CNM Logo"
-              width={300}
-              height={150}
-              className="mb-4"
+              fill
+              priority
+              className="mb-4 object-contain"
             />
           </a>
-          <h1 className="text-4xl font-bold text-center sm:text-left font-sans">Upcoming Events</h1>
+          <h1 className="text-4xl font-bold text-gray-800 text-center sm:text-left font-sans drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)]">Upcoming Events</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
@@ -105,7 +106,11 @@ const HomePage = () => {
                       } else if (eventDate.getTime() === tomorrow.getTime()) {
                         return <span className="text-blue-600 font-medium">Tomorrow</span>;
                       }
-                      return eventDate.toLocaleDateString();
+                      return eventDate.toLocaleDateString('en-US', { 
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric'
+                      });
                     })()}
                   </p>
                   <div className="grid grid-cols-2 gap-4">
