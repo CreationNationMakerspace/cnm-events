@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-// import Image from "next/image";
+import Image from "next/image";
 
 type TicketClass = {
   quantity_sold: number;
@@ -64,7 +64,18 @@ const HomePage = () => {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
       <div>
-        <h1 className="text-4xl font-bold mb-8 text-center sm:text-left font-sans">Upcoming Events</h1>
+        <div className="flex flex-col items-center mb-8">
+          <a href="https://creationnation.ca/" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/cnm.svg"
+              alt="CNM Logo"
+              width={300}
+              height={150}
+              className="mb-4"
+            />
+          </a>
+          <h1 className="text-4xl font-bold text-center sm:text-left font-sans">Upcoming Events</h1>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
             <div 
