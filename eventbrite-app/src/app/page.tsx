@@ -58,9 +58,8 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-6 pb-20 gap-16 sm:p-20 bg-[url('/backdrop.jpg')] bg-cover bg-center bg-fixed">
-      <div className="absolute inset-0 bg-white/50"></div>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start relative">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-6 pb-20 gap-16 sm:p-20">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
       <div>
         <div className="flex flex-col items-center mb-8">
           <a href="https://creationnation.ca/" target="_blank" rel="noopener noreferrer" className="relative w-[400px] h-[130px] block">

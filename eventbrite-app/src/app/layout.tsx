@@ -22,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased">
+      <body className={`${inter.variable} font-sans min-h-screen relative`}>
+        <div className="fixed inset-0 bg-[url('/backdrop.jpg')] bg-cover bg-center -z-10"></div>
+        <div className="fixed inset-0 bg-white/50 -z-10"></div>
         {children}
       </body>
     </html>
