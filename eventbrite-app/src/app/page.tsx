@@ -21,10 +21,7 @@ type Event = {
 const HomePage = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
-  console.log('Eventbrite API Token:', process.env.NEXT_PUBLIC_EVENTBRITE_API_TOKEN);
-  console.log('Eventbrite Org ID:', process.env.NEXT_PUBLIC_EVENTBRITE_ORG_ID);
-  console.log('API URL:', `https://www.eventbriteapi.com/v3/organizations/${process.env.NEXT_PUBLIC_EVENTBRITE_ORG_ID}/events/?status=live&order_by=start_asc`);
-
+  
   const fetchTicketInfo = async (eventId: string) => {
     try {
       const response = await axios.get(`https://www.eventbriteapi.com/v3/events/${eventId}/ticket_classes/`, {
