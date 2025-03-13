@@ -61,29 +61,76 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
       <div>
-        <h1>Upcoming Events</h1>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <h1 className="text-4xl font-bold mb-8 text-center sm:text-left font-sans">Upcoming Events</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
-            <div key={event.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px', width: '300px' }}>
-              <h2><a href={event.url}>{event.name.text}</a></h2>
-              <p>Date: {new Date(event.start.local).toLocaleDateString()}</p>
-              <p>Capacity: {event.ticket_classes ? event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.capacity ?? 0), 0) : 'N/A'}</p>
-              <p>Tickets Sold: {event.ticket_classes ? event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.quantity_sold ?? 0), 0) : 0}</p>
-              {event.ticket_classes && event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.capacity ?? 0), 0) === event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.quantity_sold ?? 0), 0) ? (
-                <p className="text-red-500 font-bold">SOLD OUT</p>
-              ) : (
-                <p>Available Tickets: {event.ticket_classes ? event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.capacity ?? 0), 0) - event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.quantity_sold ?? 0), 0) : 0}</p>
-              )}
+            <div 
+              key={event.id} 
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+            >
+              <div className="p-6">
+                <h2 className="text-xl font-semibold mb-3 font-sans">
+                  <a href={event.url} className="text-blue-600 hover:text-blue-800 transition-colors duration-200">
+                    {event.name.text}
+                  </a>
+                </h2>
+                <div className="space-y-3">
+                  <p className="flex items-center text-gray-700 font-sans">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {(() => {
+                      const eventDate = new Date(event.start.local);
+                      const today = new Date();
+                      const tomorrow = new Date(today);
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+                      
+                      eventDate.setHours(0, 0, 0, 0);
+                      today.setHours(0, 0, 0, 0);
+                      tomorrow.setHours(0, 0, 0, 0);
+                      
+                      if (eventDate.getTime() === today.getTime()) {
+                        return <span className="text-green-600 font-medium">Tonight</span>;
+                      } else if (eventDate.getTime() === tomorrow.getTime()) {
+                        return <span className="text-blue-600 font-medium">Tomorrow</span>;
+                      }
+                      return eventDate.toLocaleDateString();
+                    })()}
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <p className="text-sm text-gray-600 font-sans">Capacity</p>
+                      <p className="font-semibold text-gray-500 font-sans text-center">{event.ticket_classes ? event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.capacity ?? 0), 0) : 'N/A'}</p>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <p className="text-sm text-gray-600 font-sans">Tickets Sold</p>
+                      <p className="font-semibold text-gray-700 font-sans text-center">{event.ticket_classes ? event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.quantity_sold ?? 0), 0) : 0}</p>
+                    </div>
+                  </div>
+                  {event.ticket_classes && event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.capacity ?? 0), 0) === event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.quantity_sold ?? 0), 0) ? (
+                    <div className="mt-4 p-3 bg-red-50 rounded-lg">
+                      <p className="text-red-600 font-semibold text-center font-sans">SOLD OUT</p>
+                    </div>
+                  ) : (
+                    <a 
+                      href={event.url} 
+                      className="mt-4 block p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors duration-200 cursor-pointer"
+                    >
+                      <p className="text-green-600 font-semibold text-center font-sans">
+                        {event.ticket_classes ? event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.capacity ?? 0), 0) - event.ticket_classes.reduce((acc: number, ticket: TicketClass) => acc + (ticket.quantity_sold ?? 0), 0) : 0} Tickets Available
+                      </p>
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
       </main>
-      
-      
     </div>
   );
 };
