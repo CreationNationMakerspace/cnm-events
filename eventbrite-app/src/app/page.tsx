@@ -71,7 +71,7 @@ const HomePage = () => {
               className="mb-4 object-contain"
             />
           </a>
-          <h1 className="text-4xl font-bold text-gray-800 text-center sm:text-left font-sans drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)]">Upcoming Events</h1>
+          <h1 className="text-4xl font-bold text-gray-800 text-center sm:text-left font-sans drop-shadow-[0_5px_5px_rgba(160,180,200,0.9)]">Upcoming Events</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
