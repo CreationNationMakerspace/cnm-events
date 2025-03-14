@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CNM Events
+
+A Next.js application that displays upcoming events for Creation Nation Makerspace using the Eventbrite API.
+
+## Features
+
+- Real-time event listing from Eventbrite
+- Display of event capacity and ticket availability
+- Modern, responsive UI with Tailwind CSS
+- Dynamic date formatting (Today, Tomorrow, or full date)
+- Ticket status indicators (Available/Sold Out)
+- Integration with Creation Nation Makerspace branding
+
+## Tech Stack
+
+- [Next.js 14](https://nextjs.org/) - React Framework
+- [TypeScript](https://www.typescriptlang.org/) - Type Safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Axios](https://axios-http.com/) - API Requests
+- [Inter Font](https://fonts.google.com/specimen/Inter) - Typography
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.17 or later
+- npm or yarn
+- Eventbrite API Token
+- Eventbrite Organization ID
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+NEXT_PUBLIC_EVENTBRITE_API_TOKEN=your_api_token_here
+NEXT_PUBLIC_EVENTBRITE_ORG_ID=your_organization_id_here
+```
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone [repository-url]
+```
+
+2. Install dependencies
+```bash
+cd eventbrite-app
+npm install
+# or
+yarn install
+```
+
+3. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+eventbrite-app/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx      # Main events listing page
+│   │   ├── layout.tsx    # Root layout with global styles
+│   │   └── globals.css   # Global CSS styles
+│   └── types/
+│       └── types.d.ts    # TypeScript type declarations
+├── public/
+│   ├── cnm.svg          # CNM logo
+│   ├── backdrop.jpg     # Background image
+│   └── favicon.ico      # Site favicon
+└── package.json         # Project dependencies
+```
 
-## Learn More
+## Features Explained
 
-To learn more about Next.js, take a look at the following resources:
+### Event Display
+- Events are fetched from Eventbrite and displayed in a responsive grid
+- Each event shows:
+  - Event name with link to Eventbrite page
+  - Date (with special formatting for today/tomorrow)
+  - Total capacity
+  - Number of tickets sold
+  - Availability status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Responsive Design
+- Mobile-first approach
+- Responsive grid layout (1 column on mobile, 2 on tablet, 3 on desktop)
+- Adaptive typography and spacing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Visual Elements
+- Custom background with overlay
+- Drop shadow effects for improved readability
+- Hover effects on cards
+- Status-based color coding (green for available, red for sold out)
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[Add contribution guidelines if applicable]
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+[Add license information]

@@ -13,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "CNM Events",
   description: "Upcoming events at Creation Nation Makerspace",
+  icons: {
+    icon: '/favicon.ico'
+  }
 };
 
 export default function RootLayout({

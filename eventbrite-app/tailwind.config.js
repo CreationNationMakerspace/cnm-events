@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)'],
       },
+      colors: {
+        'custom-blue': '#1588C9', // Replace with your custom color
+      },
     },
   },
   plugins: [],

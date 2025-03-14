@@ -21,39 +21,38 @@ type Event = {
 const HomePage = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
-  
-  const fetchTicketInfo = async (eventId: string) => {
-    try {
-      const response = await axios.get(`https://www.eventbriteapi.com/v3/events/${eventId}/ticket_classes/`, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_EVENTBRITE_API_TOKEN}`,
-        },
-      });
-      return response.data.ticket_classes;
-    } catch (error) {
-      console.error('Error fetching ticket information:', error);
-      return [];
-    }
-  };
-
-  const fetchEvents = async () => {
-    try {
-      const response = await axios.get(`https://www.eventbriteapi.com/v3/organizations/${process.env.NEXT_PUBLIC_EVENTBRITE_ORG_ID}/events/?status=live&order_by=start_asc`, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_EVENTBRITE_API_TOKEN}`,
-        },
-      });
-      const eventsWithTickets = await Promise.all(response.data.events.map(async (event: Event) => {
-        const ticketClasses = await fetchTicketInfo(event.id);
-        return { ...event, ticket_classes: ticketClasses };
-      }));
-      setEvents(eventsWithTickets);
-    } catch (error) {
-      console.error('Error fetching events:', error);
-    }
-  };
-
   useEffect(() => {
+    const fetchTicketInfo = async (eventId: string) => {
+      try {
+        const response = await axios.get(`https://www.eventbriteapi.com/v3/events/${eventId}/ticket_classes/`, {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_EVENTBRITE_API_TOKEN}`,
+          },
+        });
+        return response.data.ticket_classes;
+      } catch (error) {
+        console.error('Error fetching ticket information:', error);
+        return [];
+      }
+    };
+
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(`https://www.eventbriteapi.com/v3/organizations/${process.env.NEXT_PUBLIC_EVENTBRITE_ORG_ID}/events/?status=live&order_by=start_asc`, {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_EVENTBRITE_API_TOKEN}`,
+          },
+        });
+        const eventsWithTickets = await Promise.all(response.data.events.map(async (event: Event) => {
+          const ticketClasses = await fetchTicketInfo(event.id);
+          return { ...event, ticket_classes: ticketClasses };
+        }));
+        setEvents(eventsWithTickets);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
     fetchEvents();
   }, []);
 
@@ -80,7 +79,7 @@ const HomePage = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100"
             >
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-3 font-sans">
+                <h2 className="text-xl text-custom-blue font-semibold mb-3 font-sans">
                   <a href={event.url} className="text-blue-600 hover:text-blue-800 transition-colors duration-200">
                     {event.name.text}
                   </a>
@@ -99,7 +98,7 @@ const HomePage = () => {
                       eventDate.setHours(0, 0, 0, 0);
                       today.setHours(0, 0, 0, 0);
                       tomorrow.setHours(0, 0, 0, 0);
-                      
+                       
                       if (eventDate.getTime() === today.getTime()) {
                         return <span className="text-green-600 font-medium">Tonight</span>;
                       } else if (eventDate.getTime() === tomorrow.getTime()) {
